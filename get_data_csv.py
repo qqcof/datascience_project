@@ -1,6 +1,6 @@
 import requests
 
-from config import symbol_tiker, API_KEY
+from config import symboltiker, apikey
 
 
 def get_and_save_data(symbol, api_key):
