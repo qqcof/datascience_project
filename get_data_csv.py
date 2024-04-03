@@ -18,5 +18,5 @@ def get_and_save_data(symbol, api_key):
 
 if __name__ == '__main__':
     symbol = symboltiker
-    api_key = API_KEY
+    api_key = apikey
     get_and_save_data(symbol, api_key)
