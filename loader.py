@@ -1,5 +1,5 @@
 import config
-import json
+import get_data_json
 import psycopg2
 from datetime import datetime
 
@@ -42,10 +42,9 @@ def load_data():
 
     connect.commit()
 
-    with open('nvda_data_formatted.json', 'r') as json_file:
-        data = json.load(json_file)
-
-        for row in data:
+    formatted_data = get_data_json.get_and_save_data(config.symboltiker, config.apikey)
+    if formatted_data:
+        for row in formatted_data:
             timestamp = datetime.strptime(row['Timestamp'], '%Y-%m-%d').date()
             open_price = row['Open']
             high_price = row['High']
@@ -55,11 +54,13 @@ def load_data():
 
             cur.execute(insert_data_sql(table_name), (timestamp, open_price, high_price, low_price, close_price, volume))
 
-    connect.commit()
-    cur.close()
-    connect.close()
+        connect.commit()
+        cur.close()
+        connect.close()
 
-    print('Данные успешно загружены в базу данных PostgreSQL!')
+        print('Данные успешно загружены в базу данных PostgreSQL!')
+    else:
+        print('Отсутствуют данные для загрузки в базу данных!')
 
 
 if __name__ == '__main__':
