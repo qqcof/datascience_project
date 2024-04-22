@@ -1,6 +1,6 @@
 import requests
 
-from config import symbol_tiker, API_KEY
+from config import symboltiker, apikey
 
 
 def get_and_save_data(symbol, api_key):
@@ -17,6 +17,6 @@ def get_and_save_data(symbol, api_key):
 
 
 if __name__ == '__main__':
-    symbol = symbol_tiker
-    api_key = API_KEY
+    symbol = symboltiker
+    api_key = apikey
     get_and_save_data(symbol, api_key)
